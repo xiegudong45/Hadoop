@@ -256,5 +256,62 @@ Partitioner决定maptask输出的数据交由哪个reduce task处理
 * 第14字段：用户IP
 * 第18字段：time
 
-### 常用属于
+## 数据仓库Hive
+### Hive的产生背景
+* MapReduce编程的不便性 (技术门槛高，需要会Java)
+* 传统RDBMS人员的需要 
+        * HDFS上的文件没有schema的概念
+
+### Hive是什么
+* 由Facebook开源，用于解决海量结构化日志的数据统计问题
+* 构建在Hadoop之上的数据仓库
+* Hive提供的SQL查询语言：HQL
+* Hive底层执行引擎支持：MR/Tez/Spark
+
+### 为什么使用Hive
+* 简单、容易上手
+* 为超大数据集设计的计算/扩展能力
+* 统一的元数据管理：
+    Hive数据是存放在HDFS上
+    元数据信息(表的名字，哪些字段和字段类型，数据存放在HDFS的位置)是存放在MySQL中
+
+### Hive的体系架构
+* Client: shell, thrift/jdbc(server/client), WebUI(HUE/Zeppelin)
+* metastore:
+        database: name, location, owner...
+        table: name, location, owner, column name/type...
+
+![](./pic/7.png)
+### Hive与RDBMS的区别
+* 支持的
+    * 都支持SQL
+    * 都支持分布式集群
+* 区别
+    * Hive通过SQL转化成MapReduce或Spark作业然后提交到集群上运行
+
+    * MySQL的集群比较小，部署在专门的比较昂贵的机器上
+    * Hive基于Hadoop的数据仓库，集群可以很大，可部署在廉价机器上
+
+    * MySQL的时效性比较高，一有query马上就能得到结果
+    * Hive主要用在离线处理或者批处理，相对较慢
+
+    * Hive的insert和update的效率较低
+### DDL: Hive Data Definition Language
+* create, delete, alter...
+* Hive数据抽象/结构
+    * database  HDFS一个目录
+    * table     HDFS一个目录
+    * partition HDFS一个目录
+    * bucket    HDFS一个文件
+
+### 默认存储路径
+/user/hive/warehouse
+
+    
+
+
+
+
+
+
 
